@@ -1,0 +1,19 @@
+{
+    "rules": {
+        "no-console": [
+            "error",
+            {
+                "allow": ["info", "warn", "error", "time", "timeEnd"]
+            }
+        ],
+        "no-unused-vars": "off",
+        "no-undef": "off"
+    },
+    "extends": ["eslint:recommended"],
+    "env": {
+        "jest": true
+    },
+    "parserOptions": {
+        "ecmaVersion": "latest"
+    }
+}
