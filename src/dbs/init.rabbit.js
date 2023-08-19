@@ -41,8 +41,6 @@ const connectToRabbitMQForTest = async () => {
 
         // Close connection to queue
         await connection.close();
-
-        console.error('Send RabbitMQ message success');
     } catch (error) {
         console.error('Connect Fail', error);
         throw error;
