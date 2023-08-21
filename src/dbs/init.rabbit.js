@@ -47,7 +47,33 @@ const connectToRabbitMQForTest = async () => {
     }
 };
 
+const consumerQueue = async (channel, queueName) => {
+    try {
+        await channel.assertQueue(queueName, {
+            // Reliability message if server crash if then server restart  then message auto send continue
+            durable: true,
+        });
+        console.info('Waiting for queue');
+
+        channel.consume(
+            queueName,
+            (msg) => {
+                console.info(
+                    `Received message: ${queueName}:::`,
+                    msg.content.toString(),
+                );
+            },
+            {
+                // Already have , not send a message for me
+                noAck: true,
+            },
+        );
+    } catch (error) {
+        return console.error(error);
+    }
+};
 module.exports = {
     connectToRabbitMQ,
     connectToRabbitMQForTest,
+    consumerQueue,
 };

@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "test": "jest",
+        "dev": "nodemon --legacy-watch server.js",
         "prepare": "husky install",
         "pre-commit": "echo \"[Husky] pre-commit\"",
         "eslint": "eslint . --ext .js,.ts"
