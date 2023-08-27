@@ -1,13 +1,33 @@
 'use strict';
 
-const { consumerQueue } = require('./src/services/consumerQueue.service');
+const {
+    consumerQueue,
+    consumerToQueueFail,
+    consumerToQueueNormal,
+} = require('./src/services/consumerQueue.service');
 
 const queueName = 'test-topic';
 
-consumerQueue(queueName)
+// consumerQueue(queueName)
+//     .then((_) => {
+//         console.info('rs:::', queueName);
+//     })
+//     .catch((error) => {
+//         console.error(`Server::`, error);
+//     });
+
+consumerToQueueNormal(queueName)
     .then((_) => {
-        console.info('rs:::', queueName);
+        console.info('Message consumerToQueueNormal:::', queueName);
     })
     .catch((error) => {
-        console.error(`Server::`, error);
+        console.error(`Server::`, error.message);
+    });
+
+consumerToQueueFail(queueName)
+    .then((_) => {
+        console.info('Message consumerToQueueFail:::', queueName);
+    })
+    .catch((error) => {
+        console.error(`Server::`, error.message);
     });
