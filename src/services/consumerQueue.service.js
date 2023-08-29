@@ -25,16 +25,44 @@ const messageService = {
 
             const notificationQueue = 'notificationQueueProcess'; // assert Queue
 
-            const timeExpired = 12000;
-            setTimeout(() => {
-                channel.consume(notificationQueue, (msg) => {
+            // 1. TTL
+
+            // const timeExpired = 12000;
+            // setTimeout(() => {
+            //     channel.consume(notificationQueue, (msg) => {
+            //         console.info(
+            //             `Send notificationQueue successfully processed`,
+            //             msg.content.toString(),
+            //         );
+            //         channel.ack(msg);
+            //     });
+            // }, timeExpired);
+
+            // 2. Logic
+            channel.consume(notificationQueue, (msg) => {
+                try {
+                    const numberTest = Math.random();
+                    console.info({ numberTest });
+
+                    if (numberTest < 0.8) {
+                        throw new Error('Send notification failed: Hot Fix');
+                    }
+
                     console.info(
-                        `Send notificationQueue successfully processed`,
+                        `Send notification Success`,
                         msg.content.toString(),
                     );
                     channel.ack(msg);
-                });
-            }, timeExpired);
+                } catch (error) {
+                    /*
+                        nack: Negative acknowledgement ( Xác nhận tiêu cực)
+                        false: Không được đẩy vào hàng đợi ban đầu nữa, mà đẩy xuống.
+                        false: Chỉ tin nhắn hiện tại được từ chối mà thôi
+                    */
+
+                    channel.nack(msg, false, false);
+                }
+            });
         } catch (error) {
             console.error(error);
         }
