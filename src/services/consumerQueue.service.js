@@ -38,7 +38,7 @@ const messageService = {
             //     });
             // }, timeExpired);
 
-            // 2. Logic
+            // 2. Logic Fail not must is ttl
             channel.consume(notificationQueue, (msg) => {
                 try {
                     const numberTest = Math.random();
