@@ -55,9 +55,9 @@ const messageService = {
                     channel.ack(msg);
                 } catch (error) {
                     /*
-                        nack: Negative acknowledgement ( Xác nhận tiêu cực)
-                        false: Không được đẩy vào hàng đợi ban đầu nữa, mà đẩy xuống.
-                        false: Chỉ tin nhắn hiện tại được từ chối mà thôi
+                        Pram 1 -> nack: Negative acknowledgement ( Xác nhận tiêu cực)
+                        Pram 2 -> false: Không được đẩy vào hàng đợi ban đầu nữa, mà đẩy xuống.
+                        Pram 3 -> false: Chỉ tin nhắn hiện tại được từ chối mà thôi
                     */
 
                     channel.nack(msg, false, false);
